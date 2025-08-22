@@ -32,7 +32,7 @@
                         <select name="proje_durum" class="form-control">
                             <option value="Yeni Başladı">Yeni Başladı</option>
                             <option value="Devam Ediyor">Devam Ediyor</option>
-                            <option value="Yeni Başladı">Bitti</option>
+                            <option value="Bitti">Bitti</option>
                         </select>
                     </div>
                 </div>

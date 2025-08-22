@@ -78,4 +78,35 @@ if (isset($_POST['projeekle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
 /*Proje ekle İşlemi Giriş*/
 
 
+/*Proje duzenle İşlemi Giriş*/
+/*******************************************************************************/
+if (isset($_POST['projeduzenle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
+    $projeduzenle = $db-> prepare("UPDATE proje SET 
+    proje_baslik=:baslik,
+    proje_teslim_tarihi=:teslim_tarih,
+    proje_aciliyet=:aciliyet,
+    proje_durum=:durum,
+    proje_detay=:detay
+    WHERE proje_id=:proje_id"
+    );
+    $projeduzenle->execute(array(
+        'baslik' => $_POST['proje_baslik'],
+        'teslim_tarih' => $_POST['proje_teslim_tarihi'],
+        'aciliyet' => $_POST['proje_aciliyet'],
+        'durum' => $_POST['proje_durum'],
+        'detay' => $_POST['proje_detay'],
+        'proje_id' => $_POST['proje_id']
+    ));
+
+    if ($projeduzenle) {
+        header("location:..index.php");
+    } else {
+        echo "Başarız";
+        exit;
+    }
+}
+/*******************************************************************************/
+/*Proje duzenle İşlemi Giriş*/
+
+
 ?>
