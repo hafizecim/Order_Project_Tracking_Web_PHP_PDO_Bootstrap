@@ -53,7 +53,7 @@ if (isset($_POST['oturumac'])) {
 /*Proje ekle İşlemi Giriş*/
 /*******************************************************************************/
 if (isset($_POST['projeekle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
-    $projeekle = $db-> prepare("INSERT INTO proje SET 
+    $projeekle = $db->prepare("INSERT INTO proje SET 
     proje_baslik=:baslik,
     proje_teslim_tarihi=:teslim_tarih,
     proje_aciliyet=:aciliyet,
@@ -81,7 +81,7 @@ if (isset($_POST['projeekle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
 /*Proje duzenle İşlemi Giriş*/
 /*******************************************************************************/
 if (isset($_POST['projeduzenle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
-    $projeduzenle = $db-> prepare("UPDATE proje SET 
+    $projeduzenle = $db->prepare("UPDATE proje SET 
     proje_baslik=:baslik,
     proje_teslim_tarihi=:teslim_tarih,
     proje_aciliyet=:aciliyet,
@@ -108,5 +108,26 @@ if (isset($_POST['projeduzenle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
 /*******************************************************************************/
 /*Proje duzenle İşlemi Giriş*/
 
+
+/*Proje silme İşlemi Giriş*/
+/********************************************************************************/
+
+if (isset($_POST['projesilme'])) {
+    $sil = $db->prepare("DELETE from proje where proje_id=:proje_id");
+    $kontrol = $sil->execute(array(
+        'proje_id' => $_POST['proje_id']
+    ));
+
+    if ($kontrol) {
+        //echo "kayıt başarılı";
+        header("location:../projeler.php");
+    } else {
+        echo "kayıt başarısız";
+        exit;
+    }
+}
+
+/********************************************************************************/
+/*Proje silme İşlemi Giriş*/
 
 ?>
