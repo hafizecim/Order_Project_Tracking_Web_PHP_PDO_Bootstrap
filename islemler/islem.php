@@ -19,7 +19,7 @@ if (isset($_POST['ayarkaydet'])) {  // eğer gele değerler doluysa
         'site_sahibi' => $_POST['site_sahibi']
 
     ));
- 
+
 }
 
 /********************************************************************************/
@@ -28,27 +28,54 @@ if (isset($_POST['ayarkaydet'])) {  // eğer gele değerler doluysa
 if (isset($_POST['oturumac'])) {
 
 
-    $kullanicisor=$db->prepare("SELECT * FROM kullanici WHERE kul_mail=:mail and kul_sifre=:sifre");
+    $kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kul_mail=:mail and kul_sifre=:sifre");
     $kullanicisor->execute(array(
-      'mail'=> $_POST['kul_mail'],
-      'sifre'=> $_POST['kul_sifre']
+        'mail' => $_POST['kul_mail'],
+        'sifre' => $_POST['kul_sifre']
     ));
-     $sonuc=$kullanicisor->rowCount();
-     
-     if ($sonuc==0) {
-        echo "Mail ya da şifreniz yanlış";
-     }else{
-        header("location:..index.php");
-        $_SESSION['kul_mail']= $_POST['kul_mail'];
-     }
+    $sonuc = $kullanicisor->rowCount();
 
-	
-    
+    if ($sonuc == 0) {
+        echo "Mail ya da şifreniz yanlış";
+    } else {
+        header("location:..index.php");
+        $_SESSION['kul_mail'] = $_POST['kul_mail'];
+    }
+
+
+
 }
+/*******************************************************************************/
 /*Oturum Açma İşlemi Giriş*/
 
 
+
+/*Proje ekle İşlemi Giriş*/
 /*******************************************************************************/
+if (isset($_POST['projeekle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
+    $projeekle = $db-> prepare("INSERT INTO proje SET 
+    proje_baslik=:baslik,
+    proje_teslim_tarihi=:teslim_tarih,
+    proje_aciliyet=:aciliyet,
+    proje_durum=:durum,
+    proje_detay=:detay");
+    $projeekle->execute(array(
+        'baslik' => $_POST['proje_baslik'],
+        'teslim_tarih' => $_POST['proje_teslim_tarihi'],
+        'aciliyet' => $_POST['proje_aciliyet'],
+        'durum' => $_POST['proje_durum'],
+        'detay' => $_POST['proje_detay']
+    ));
+
+    if ($projeekle) {
+        header("location:..index.php");
+    } else {
+        echo "Başarız";
+        exit;
+    }
+}
+/*******************************************************************************/
+/*Proje ekle İşlemi Giriş*/
+
 
 ?>
-

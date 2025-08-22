@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-md-6">
                         <label>Teslim Tarihi</label>
-                        <input type="date" name="proje_telim_tarih" class="form-control">
+                        <input type="date" name="proje_teslim_tarihi" class="form-control">
                     </div>
                 </div>
                 <div class="form-row mt-2">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-md-6">
                         <label>Proje Durumu</label>
-                        <select name="proje_aciliyet" class="form-control">
+                        <select name="proje_durum" class="form-control">
                             <option value="Yeni Başladı">Yeni Başladı</option>
                             <option value="Devam Ediyor">Devam Ediyor</option>
                             <option value="Yeni Başladı">Bitti</option>
@@ -40,7 +40,7 @@
                     <label>Proje Detayı</label>
                     <textarea name="proje_detay" class="form-control"></textarea>
                 </div>
-                <button name="projeekle" type="button" class="btn btn-primary mt-2">Kaydet</button>
+                <button name="projeekle" type="submit" class="btn btn-primary mt-2">Kaydet</button>
             </form>
         </div>
     </div>
