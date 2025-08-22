@@ -18,4 +18,32 @@ if (isset($_POST['ayarkaydet'])) {  // eğer gele değerler doluysa
  
 }
 
+/********************************************************************************/
+
+/*Oturum Açma İşlemi Giriş*/
+if (isset($_POST['oturumac'])) {
+
+
+    $kullanicisor=$db->prepare("SELECT * FROM kullanici WHERE kul_mail=:mail and kul_sifre=:sifre");
+    $kullanicisor->execute(array(
+      'mail'=> $_POST['kul_mail'],
+      'sifre'=> $_POST['kul_sifre']
+    ));
+     $sonuc=$kullanicisor->rowCount();
+     
+     if ($sonuc==0) {
+        echo "Mail ya da şifreniz yanlış";
+     }else{
+        echo "Giriş yapıldı";
+     }
+
+	
+    
+}
+/*Oturum Açma İşlemi Giriş*/
+
+
+/*******************************************************************************/
+
 ?>
+
