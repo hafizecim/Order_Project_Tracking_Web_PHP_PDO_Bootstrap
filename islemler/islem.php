@@ -1,6 +1,10 @@
 <?php
 include 'baglan.php';
 
+// oturum açma işlemleri güvenlik önlemleri
+ob_start();
+session_start();
+
 if (isset($_POST['ayarkaydet'])) {  // eğer gele değerler doluysa
     // veri tabanı kayıt işlemi
     $ayarkaydet = $db->prepare("UPDATE ayarlar SET 
@@ -34,7 +38,8 @@ if (isset($_POST['oturumac'])) {
      if ($sonuc==0) {
         echo "Mail ya da şifreniz yanlış";
      }else{
-        echo "Giriş yapıldı";
+        header("location:..index.php");
+        $_SESSION['kul_mail']= $_POST['kul_mail'];
      }
 
 	

@@ -1,10 +1,30 @@
 <?php
 include 'islemler/baglan.php';
 
+// oturum açma işlemleri güvenlik önlemleri
+ob_start();
+session_start();
+
 // veri tabaınından veri çekme işlemi
 $ayarsor=$db->prepare("SELECT * FROM ayarlar");
 $ayarsor->execute();
 $ayarcek=$ayarsor->fetch(PDO::FETCH_ASSOC);
+
+if (empty($_SESSION['kul_mail'])){
+    header("location:giris.php");
+    exit; // exit in altındaki hiçbir kod çalışmaz
+}else{
+     $kullanicisor=$db->prepare("SELECT * FROM kullanici WHERE kul_mail=:mail");
+    $kullanicisor->execute(array(
+      'mail'=> $_SESSION['kul_mail']
+    ));
+     $sonuc=$kullanicisor->rowCount();
+     
+     if ($sonuc==0) {
+        header("location:giris.php");
+     }
+
+}
 
 ?>
 
@@ -372,7 +392,7 @@ $ayarcek=$ayarsor->fetch(PDO::FETCH_ASSOC);
 
                 </nav>
                 <!-- End of Topbar -->
-            <!-- </div> -->
+            <!-- </div> --> 
             <!-- End of Main Content -->
 
             
