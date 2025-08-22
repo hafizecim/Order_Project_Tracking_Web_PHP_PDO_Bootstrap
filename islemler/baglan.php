@@ -6,7 +6,7 @@ $sifre = ""; //Kullanıcı şifreniz şifre yoksa 123456789 yazan yeri silip bo�
 
 try {
 	$db=new PDO("mysql:host=$host;dbname=$veritabani_ismi;charset=utf8",$kullanici_adi,$sifre);
-	echo "veritabanı bağlantısı başarılı";
+	//echo "veritabanı bağlantısı başarılı";
 }
 
 catch (PDOExpception $e) {

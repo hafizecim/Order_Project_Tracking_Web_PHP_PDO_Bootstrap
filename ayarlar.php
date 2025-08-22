@@ -1,4 +1,6 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php'; 
+
+?>
 
 <div class="container-fluid">
 
@@ -19,20 +21,18 @@
                 </div>
             <?php endif; ?>
 
-            <form action="ayarlar_submit" method="post" accept-charset="utf-8">
+            <form action="islemler/islem.php" method="POST" accept-charset="utf-8">
                 <div class="form-group">
                     <label for="siteBaslik">Sitenizin Başlığı</label>
-                    <input class="form-control" id="siteBaslik" type="text" name="site_baslik" placeholder="Sitenizin Başlığını Girin">
+                    <input class="form-control" id="siteBaslik" type="text" name="site_baslik" value="<?php echo $ayarcek['site_baslik'] ?>">
                 </div>
                 <div class="form-group">
                     <label for="siteAciklama">Sitenizin Açıklaması</label>
-                    <textarea class="form-control" id="siteAciklama" name="site_aciklama" rows="3" placeholder="Sitenizin Açıklamasını Girin"></textarea>
-                </div>
-                <div class="form-group">
+                    <textarea class="form-control" id="siteAciklama" name="site_aciklama" rows="3"><?php echo $ayarcek['site_aciklama']; ?></textarea>
                     <label for="siteSahibi">Site Sahibi</label>
-                    <input class="form-control" id="siteSahibi" type="text" name="site_sahibi" placeholder="Site Sahibi İsmini Girin">
+                    <input class="form-control" id="siteSahibi" type="text" name="site_sahibi" value="<?php echo $ayarcek['site_sahibi'] ?>">
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Kaydet</button>
+                <button type="submit" class="btn btn-primary mt-3" name="ayarkaydet">Kaydet</button>
             </form>
         </div>
     </div>
