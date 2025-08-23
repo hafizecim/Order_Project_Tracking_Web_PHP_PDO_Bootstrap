@@ -218,7 +218,7 @@ include 'header.php'
                                                 </span>
                                             </button>
                                         </form>
-                                        <form action="proje.php" method="POST">
+                                        <form action="projegoruntule.php" method="POST">
                                             <input type="hidden" name="proje_id"
                                                 value="<?php echo $projecek['proje_id'] ?>">
                                             <button type="submit" name="proje_bak"
