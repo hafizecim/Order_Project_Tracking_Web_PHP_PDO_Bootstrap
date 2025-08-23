@@ -219,6 +219,25 @@ if (isset($_POST['siparisduzenle'])) {
 
 
 
+/*Sipariş silme İşlemi Giriş*/
+/********************************************************************************/
 
+if (isset($_POST['siparissilme'])) {
+    $sil = $db->prepare("DELETE from siparis where sip_id=:sip_id");
+    $kontrol = $sil->execute(array(
+        'sip_id' => $_POST['sip_id']
+    ));
+
+    if ($kontrol) {
+        //echo "kayıt başarılı";
+        header("location:../siparisler.php");
+    } else {
+        echo "kayıt başarısız";
+        exit;
+    }
+}
+
+/********************************************************************************/
+/*Sipariş silme İşlemi Giriş*/
 
 ?>
