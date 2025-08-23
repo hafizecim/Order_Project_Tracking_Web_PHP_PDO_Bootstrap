@@ -176,5 +176,49 @@ if (isset($_POST['siparisekle'])) {
 
 
 
+/*Sipariş düzenle İşlemi Giriş*/
+/********************************************************************************/
+
+if (isset($_POST['siparisduzenle'])) {
+    $siparisduzenle = $db->prepare("UPDATE siparis SET
+        musteri_isim=:isim,
+        musteri_mail=:mail,
+        musteri_telefon=:telefon,
+        sip_baslik=:baslik,
+        sip_teslim_tarihi=:teslim_tarihi,
+        sip_aciliyet=:aciliyet,
+        sip_durum=:durum,
+        sip_ucret=:ucret,
+        sip_detay=:detay
+        WHERE sip_id=:sip_id
+    ");
+
+     $siparisduzenle->execute(array(
+        'isim' => $_POST['musteri_isim'],
+        'mail' => $_POST['musteri_mail'],
+        'telefon' => $_POST['musteri_telefon'],
+        'baslik' => $_POST['sip_baslik'],
+        'teslim_tarihi' => $_POST['sip_teslim_tarihi'],
+        'aciliyet' => $_POST['sip_aciliyet'],
+        'durum' => $_POST['sip_durum'],
+        'ucret' => $_POST['sip_ucret'],
+        'detay' => $_POST['sip_detay'],
+        'sip_id' => $_POST['sip_id']  // HIDDEN INPUT’TAN GELİYOR 
+    ));
+
+    if ($siparisduzenle) {
+        header("location:../siparisler.php");
+    } else {
+        echo "Sipariş güncelleme başarısız!";
+        exit;
+    }
+}
+
+/********************************************************************************/
+/*Sipariş düzenle İşlemi Çıkış*/
+
+
+
+
 
 ?>
