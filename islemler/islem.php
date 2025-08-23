@@ -130,5 +130,47 @@ if (isset($_POST['projesilme'])) {
 /********************************************************************************/
 /*Proje silme İşlemi Giriş*/
 
+/*Sipariş ekle İşlemi Giriş*/
+/********************************************************************************/
 
+if (isset($_POST['siparisekle'])) {
+    $siparisekle = $db->prepare("INSERT INTO siparis SET
+    musteri_isim=:isim,
+    musteri_mail=:mail,
+    musteri_telefon=:telefon,
+    sip_baslik=:baslik,
+    sip_teslim_tarihi=:teslim_tarihi,
+    sip_aciliyet=:aciliyet,
+    sip_durum=:durum,
+    sip_ucret=:ucret,
+    sip_detay=:detay
+    /*yuzde=:yuzde,*/
+    /*sip_baslama_tarih=:sip_baslama_tarih  */
+    ");
+
+    $siparisekle->execute(array(
+        'isim' => $_POST['musteri_isim'],
+        'mail' => $_POST['musteri_mail'],
+        'telefon' => $_POST['musteri_telefon'],
+        'baslik' => $_POST['sip_baslik'],
+        'teslim_tarihi' => $_POST['sip_teslim_tarihi'],
+        'aciliyet' => $_POST['sip_aciliyet'],
+        'durum' => $_POST['sip_durum'],
+        'ucret' => $_POST['sip_ucret'],
+        'detay' => $_POST['sip_detay']
+        /*'yuzde' => $_POST['yuzde'], */
+        /*'sip_baslama_tarih' => $_POST['sip_baslama_tarih']*/
+    ));
+
+    if ($siparisekle) {
+        //echo "kayıt başarılı";
+        header("location:../index.php");
+    } else {
+        echo "kayıt başarısız";
+        exit;
+    }
+}
+
+/********************************************************************************/
+/*Sipariş ekle İşlemi Giriş*/
 ?>
