@@ -8,4 +8,13 @@ function tr_degistirme($metin) {
 	return $yeni_metin;
 };
 
+
+function guvenlik($gelen){
+	$giden = addslashes($gelen);
+	$giden = htmlspecialchars($giden);
+	$giden = htmlentities($giden);
+	$giden = strip_tags($giden);
+	return $giden;
+};
+
 ?>

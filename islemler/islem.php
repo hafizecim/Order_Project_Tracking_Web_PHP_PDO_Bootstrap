@@ -61,11 +61,11 @@ if (isset($_POST['projeekle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
     proje_durum=:durum,
     proje_detay=:detay");
     $projeekle->execute(array(
-        'baslik' => $_POST['proje_baslik'],
-        'teslim_tarih' => $_POST['proje_teslim_tarihi'],
-        'aciliyet' => $_POST['proje_aciliyet'],
-        'durum' => $_POST['proje_durum'],
-        'detay' => $_POST['proje_detay']
+        'baslik' => guvenlik($_POST['proje_baslik']),
+        'teslim_tarih' => guvenlik($_POST['proje_teslim_tarihi']),
+        'aciliyet' => guvenlik($_POST['proje_aciliyet']),
+        'durum' => guvenlik($_POST['proje_durum']),
+        'detay' => guvenlik($_POST['proje_detay'])
     ));
 
 
