@@ -1,3 +1,9 @@
+<?php include 'header.php'; ?>
+
+
+<?php include 'footer.php'; ?>
+
+
 
 <?php
 // bu alan sadece not almak kod tekraları için kopyala yapıştırı kolaylaştırmak için
@@ -19,3 +25,7 @@ if (isset($_POST['ayarkaydet'])) {  // eğer gele değerler doluysa
 // veri güncellemek istediğinde bu kod yapısını kullanabilirsin -- bitiş
 ?>
 
+<?php include 'header.php'; ?>
+
+
+<?php include 'footer.php'; ?>
