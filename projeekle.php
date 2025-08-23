@@ -12,7 +12,7 @@
             <h3 class="display-4" style="font-size: 2rem;">Proje Ekle</h3>
         </div>
         <div class="card-body">
-            <form action="islemler/islem.php" method="POST">
+            <form action="islemler/islem.php" method="POST" >
                 <div class="form-row mt-2">
                     <div class="col-md-6">
                         <label>Proje Başlığı</label>

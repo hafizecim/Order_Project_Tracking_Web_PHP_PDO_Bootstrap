@@ -22,11 +22,12 @@ if (isset($_POST['sip_id'])) {
         </div>
         <div class="card-body">
             <form action="islemler/islem.php" method="POST">
-                
+
                 <div class="form-row mt-3">
                     <div class="col-md-6">
                         <label>İsim Soyisim</label>
-                        <input type="text" class="form-control" name="musteri_isim" value="<?php echo $sipariscek['musteri_isim'] ?>">
+                        <input type="text" class="form-control" name="musteri_isim"
+                            value="<?php echo $sipariscek['musteri_isim'] ?>">
                     </div>
                     <div class="col-md-6">
                         <label>Mail Adresi</label>
@@ -50,9 +51,17 @@ if (isset($_POST['sip_id'])) {
                     <div class="form-group col-md-6">
                         <label>Sipariş Durumu</label>
                         <select required name="sip_durum" class="form-control">
-                            <option <?php if($sipariscek['sip_durum'] == "Yeni Başladı") {echo "selected";} ?>>Yeni Başladı</option>
-                            <option <?php if($sipariscek['sip_durum'] == "Devam Ediyor") {echo "selected";} ?>>Devam Ediyor</option>
-                            <option <?php if($sipariscek['sip_durum'] == "Bitti") {echo "selected";} ?>>Bitti</option>
+                            <option <?php if ($sipariscek['sip_durum'] == "Yeni Başladı") {
+                                echo "selected";
+                            } ?>>Yeni
+                                Başladı</option>
+                            <option <?php if ($sipariscek['sip_durum'] == "Devam Ediyor") {
+                                echo "selected";
+                            } ?>>Devam
+                                Ediyor</option>
+                            <option <?php if ($sipariscek['sip_durum'] == "Bitti") {
+                                echo "selected";
+                            } ?>>Bitti</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
@@ -64,14 +73,23 @@ if (isset($_POST['sip_id'])) {
                 <div class="form-row mt-3">
                     <div class="form-group col-md-6">
                         <label>Teslim Tarihi</label>
-                        <input type="date" class="form-control" required name="sip_teslim_tarihi" value="<?php echo $sipariscek['sip_teslim_tarihi'] ?>">
+                        <input type="date" class="form-control" required name="sip_teslim_tarihi"
+                            value="<?php echo $sipariscek['sip_teslim_tarihi'] ?>">
                     </div>
                     <div class="form-group col-md-6">
                         <label>Aciliyet</label>
                         <select required name="sip_aciliyet" class="form-control">
-                            <option <?php if($sipariscek['sip_aciliyet'] == "Acil") {echo "selected";} ?>>Acil</option>
-                            <option <?php if($sipariscek['sip_aciliyet'] == "Normal") {echo "selected";} ?>>Normal</option>
-                            <option <?php if($sipariscek['sip_aciliyet'] == "Acelesi Yok") {echo "selected";} ?>>Acelesi Yok</option>
+                            <option <?php if ($sipariscek['sip_aciliyet'] == "Acil") {
+                                echo "selected";
+                            } ?>>Acil</option>
+                            <option <?php if ($sipariscek['sip_aciliyet'] == "Normal") {
+                                echo "selected";
+                            } ?>>Normal
+                            </option>
+                            <option <?php if ($sipariscek['sip_aciliyet'] == "Acelesi Yok") {
+                                echo "selected";
+                            } ?>>Acelesi
+                                Yok</option>
                         </select>
                     </div>
                 </div>
@@ -83,8 +101,11 @@ if (isset($_POST['sip_id'])) {
                     </div>
                 </div>
                 <input type="hidden" class="form-control" name="sip_id" value="<?php echo $sipariscek['sip_id'] ?>">
-                <button type="submit" name="siparisduzenle" class="btn btn-primary btn-lg"><i class="fa fa-save"></i>
-                    Kaydet</button>
+                <div class="form-row mt-4 text-center float-right">
+                    <button type="submit" name="siparisduzenle" class="btn btn-primary btn-lg"><i
+                            class="fa fa-save"></i>
+                        Kaydet</button>
+                </div>
             </form>
         </div>
     </div>

@@ -1,5 +1,6 @@
 <?php
 include 'baglan.php';
+include '../fonksiyonlar.php';
 
 // oturum açma işlemleri güvenlik önlemleri
 ob_start();
@@ -38,7 +39,7 @@ if (isset($_POST['oturumac'])) {
     if ($sonuc == 0) {
         echo "Mail ya da şifreniz yanlış";
     } else {
-        header("location:..index.php");
+        header("location:../index.php"); 
         $_SESSION['kul_mail'] = $_POST['kul_mail'];
     }
 
@@ -66,9 +67,19 @@ if (isset($_POST['projeekle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
         'durum' => $_POST['proje_durum'],
         'detay' => $_POST['proje_detay']
     ));
+    
+    
+    $yuklemeklasoru = '../dosyalar';
+    $gecici_isim=$_FILES['proje_dosya']['tmp_name'];
+    $sayi=rand(1000000,999999);
+    $dosya_ismi=$sayi.tr_degistirme($_FILES['proje_dosya']['name']);
+    move_uploaded_file($gecici_isim, "$yuklemeklasoru/$dosya_ismi");
+    
+
+   
 
     if ($projeekle) {
-        header("location:..index.php");
+        header("location:../index.php");
     } else {
         echo "Başarız";
         exit;
@@ -99,7 +110,7 @@ if (isset($_POST['projeduzenle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
     ));
 
     if ($projeduzenle) {
-        header("location:..index.php");
+        header("location:../index.php");
     } else {
         echo "Başarız";
         exit;
