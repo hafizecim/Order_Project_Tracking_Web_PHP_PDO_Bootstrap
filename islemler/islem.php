@@ -67,13 +67,25 @@ if (isset($_POST['projeekle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
         'durum' => $_POST['proje_durum'],
         'detay' => $_POST['proje_detay']
     ));
-    
-    
+
+
     $yuklemeklasoru = '../dosyalar';
-    $gecici_isim=$_FILES['proje_dosya']['tmp_name'];
-    $sayi=rand(1000000,999999);
-    $dosya_ismi=$sayi.tr_degistirme($_FILES['proje_dosya']['name']);
-    move_uploaded_file($gecici_isim, "$yuklemeklasoru/$dosya_ismi");
+    @$gecici_isim = $_FILES['proje_dosya']["tmp_name"];
+    @$dosya_ismi = $_FILES['proje_dosya']["name"];
+    $benzersizsayi1=rand(100000,999999);
+    $isim=tr_degistirme($benzersizsayi1.$_POST['proje_baslik'].$dosya_ismi);
+    $resim_yolu=substr($yuklemeklasoru,3)."/".$isim;
+    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");  
+
+    $son_eklenen_id=$db->lastInsertId();
+
+    $dosyayukleme=$db->prepare("UPDATE proje SET
+     dosya_yolu=:dosya_yolu   WHERE proje_id=:proje_id ");
+
+    $yukleme=$dosyayukleme->execute(array(
+     'dosya_yolu' => $resim_yolu,
+     'proje_id' => $son_eklenen_id
+   ));
     
 
    
@@ -108,6 +120,25 @@ if (isset($_POST['projeduzenle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
         'detay' => $_POST['proje_detay'],
         'proje_id' => $_POST['proje_id']
     ));
+
+
+    $yuklemeklasoru = '../dosyalar';
+    @$gecici_isim = $_FILES['proje_dosya']["tmp_name"];
+    @$dosya_ismi = $_FILES['proje_dosya']["name"];
+    $benzersizsayi1=rand(100000,999999);
+    $isim=tr_degistirme($benzersizsayi1.$_POST['proje_baslik'].$dosya_ismi);
+    $resim_yolu=substr($yuklemeklasoru,3)."/".$isim;
+    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");  
+
+
+    $dosyayukleme=$db->prepare("UPDATE proje SET
+     dosya_yolu=:dosya_yolu    WHERE proje_id=:proje_id ");
+
+    $yukleme=$dosyayukleme->execute(array(
+     'dosya_yolu' => $resim_yolu,
+     'proje_id' => $_POST['proje_id']
+   ));
+
 
     if ($projeduzenle) {
         header("location:../index.php");
@@ -173,6 +204,25 @@ if (isset($_POST['siparisekle'])) {
         /*'sip_baslama_tarih' => $_POST['sip_baslama_tarih']*/
     ));
 
+
+    $yuklemeklasoru = '../dosyalar';
+    @$gecici_isim = $_FILES['siparis_dosya']["tmp_name"];
+    @$dosya_ismi = $_FILES['siparis_dosya']["name"];
+    $benzersizsayi1=rand(100000,999999);
+    $isim=tr_degistirme($benzersizsayi1.$_POST['sip_baslik'].$dosya_ismi);
+    $resim_yolu=substr($yuklemeklasoru,3)."/".$isim;
+    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");  
+
+    $son_eklenen_id=$db->lastInsertId();
+
+    $dosyayukleme=$db->prepare("UPDATE siparis SET
+     dosya_yolu=:dosya_yolu   WHERE sip_id=:sip_id ");
+
+    $yukleme=$dosyayukleme->execute(array(
+     'dosya_yolu' => $resim_yolu,
+     'sip_id' => $son_eklenen_id
+   ));
+
     if ($siparisekle) {
         //echo "kayıt başarılı";
         header("location:../index.php");
@@ -217,8 +267,26 @@ if (isset($_POST['siparisduzenle'])) {
         'sip_id' => $_POST['sip_id']  // HIDDEN INPUT’TAN GELİYOR 
     ));
 
+
+    $yuklemeklasoru = '../dosyalar';
+    @$gecici_isim = $_FILES['siparis_dosya']["tmp_name"];
+    @$dosya_ismi = $_FILES['siparis_dosya']["name"];
+    $benzersizsayi1=rand(100000,999999);
+    $isim=tr_degistirme($benzersizsayi1.$_POST['sip_baslik'].$dosya_ismi);
+    $resim_yolu=substr($yuklemeklasoru,3)."/".$isim;
+    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");  
+
+
+    $dosyayukleme=$db->prepare("UPDATE siparis SET
+     dosya_yolu=:dosya_yolu   WHERE sip_id=:sip_id ");
+
+    $yukleme=$dosyayukleme->execute(array(
+     'dosya_yolu' => $resim_yolu,
+     'sip_id' => $_POST['sip_id']
+   ));
+
     if ($siparisduzenle) {
-        header("location:../siparisler.php");
+        header("location:../index.php");
     } else {
         echo "Sipariş güncelleme başarısız!";
         exit;

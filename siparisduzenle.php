@@ -15,6 +15,13 @@ if (isset($_POST['sip_id'])) {
 
 ?>
 
+
+<link rel="stylesheet" media="all" type="text/css" href="vendor/upload/css/fileinput.min.css">
+<link rel="stylesheet" type="text/css" media="all" href="vendor/upload/themes/explorer-fas/theme.min.css">
+<script src="vendor/upload/js/fileinput.js" type="text/javascript" charset="utf-8"></script>
+<script src="vendor/upload/themes/fas/theme.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="vendor/upload/themes/explorer-fas/theme.minn.js" type="text/javascript" charset="utf-8"></script>
+
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -93,13 +100,17 @@ if (isset($_POST['sip_id'])) {
                         </select>
                     </div>
                 </div>
-                <div class="form-row mt-3">
-                    <div class="form-group col-md-12">
+                <div class=" form-row mt-2">
+                    <div class="col-md-6">
+                        <label>Dosya Seçme</label>
+                        <input type="file" name="siparis_dosya" id="siparisdosya">
+                    </div>
+                    <div class="col-md-6">
                         <label>Sipariş Detay</label>
-                        <textarea name="sip_detay" id="editor" class="form-control"
-                            value="<?php echo $sipariscek['sip_detay'] ?> "></textarea>
+                        <textarea name="sip_detay" class="form-control"  style="height: 306px";><?php echo $sipariscek['sip_detay'] ?></textarea>
                     </div>
                 </div>
+
                 <input type="hidden" class="form-control" name="sip_id" value="<?php echo $sipariscek['sip_id'] ?>">
                 <div class="form-row mt-4 text-center float-right">
                     <button type="submit" name="siparisduzenle" class="btn btn-primary btn-lg"><i
@@ -114,3 +125,44 @@ if (isset($_POST['sip_id'])) {
 
 
 <?php include 'footer.php'; ?>
+
+
+<?php 
+if (strlen($dosyayolu)>10) {?>
+	<script>
+		$(document).ready(function () {
+			var url1='<?php echo $dosyayolu ?>'
+			$("#siparisdosya").fileinput({
+				'theme': 'explorer-fas',
+				'showUpload': false,
+				'showCaption': true,
+				'showDownload': true,
+			//	'initialPreviewAsData': true,
+			allowedFileExtensions: ["jpg", "png", "jpeg", "mp4", "zip", "rar"],
+			initialPreview: [
+			'<img src="dosyalar/<?php echo $dosyayolu ?>" style="height:100px" class="file-preview-image" alt="Dosya" title="Dosya">'
+			],
+			initialPreviewConfig: [
+			{downloadUrl: url1,
+				showRemove: false,
+			},
+			],
+		});
+
+		});
+	</script>
+<?php } else { ?>
+	<script>
+		$(document).ready(function () {
+			$("#siparisdosya").fileinput({
+				'theme': 'explorer-fas',
+				'showUpload': false,
+				'showCaption': true,
+				'showDownload': true,
+			//	'initialPreviewAsData': true,
+			allowedFileExtensions: ["jpg", "png", "jpeg", "mp4", "zip", "rar"],
+		});
+
+		});
+	</script>
+<?php } ?>

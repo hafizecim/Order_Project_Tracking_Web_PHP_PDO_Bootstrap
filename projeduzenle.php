@@ -8,9 +8,15 @@ if (isset($_POST['proje_id'])) {
     $projecek = $projesor->fetch(PDO::FETCH_ASSOC);
 }
 
+$dosyayolu=$projecek['dosya_yolu'];
 
 ?>
 
+<link rel="stylesheet" media="all" type="text/css" href="vendor/upload/css/fileinput.min.css">
+<link rel="stylesheet" type="text/css" media="all" href="vendor/upload/themes/explorer-fas/theme.min.css">
+<script src="vendor/upload/js/fileinput.js" type="text/javascript" charset="utf-8"></script>
+<script src="vendor/upload/themes/fas/theme.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="vendor/upload/themes/explorer-fas/theme.minn.js" type="text/javascript" charset="utf-8"></script>
 
 <div class="container">
     <div class="card">
@@ -68,9 +74,15 @@ if (isset($_POST['proje_id'])) {
                     </div>
                 </div>
                 <input type="hidden" name="proje_id" value="<?php echo $_POST['proje_id'] ?>">
-                <div class="form-row mt-2">
-                    <label>Proje Detayı</label>
-                    <textarea name="proje_detay" class="form-control"><?php echo $projecek['proje_detay'] ?></textarea>
+                <div class=" form-row mt-2">
+                    <div class="col-md-6">
+                        <label>Dosya Seçme</label>
+                        <input type="file" name="proje_dosya" id="projedosya">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Proje Detayı</label>
+                        <textarea name="proje_detay" class="form-control"  style="height: 306px";><?php echo $projecek['proje_detay'] ?></textarea>
+                    </div>
                 </div>
                 <div class="form-row mt-4 text-center float-right">
                     <button name="projeduzenle" type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i>
@@ -82,3 +94,43 @@ if (isset($_POST['proje_id'])) {
 </div>
 
 <?php include 'footer.php' ?>
+
+<?php 
+if (strlen($dosyayolu)>10) {?>
+	<script>
+		$(document).ready(function () {
+			var url1='<?php echo $dosyayolu ?>'
+			$("#projedosya").fileinput({
+				'theme': 'explorer-fas',
+				'showUpload': false,
+				'showCaption': true,
+				'showDownload': true,
+			//	'initialPreviewAsData': true,
+			allowedFileExtensions: ["jpg", "png", "jpeg", "mp4", "zip", "rar"],
+			initialPreview: [
+			'<img src="dosyalar/<?php echo $dosyayolu ?>" style="height:100px" class="file-preview-image" alt="Dosya" title="Dosya">'
+			],
+			initialPreviewConfig: [
+			{downloadUrl: url1,
+				showRemove: false,
+			},
+			],
+		});
+
+		});
+	</script>
+<?php } else { ?>
+	<script>
+		$(document).ready(function () {
+			$("#projedosya").fileinput({
+				'theme': 'explorer-fas',
+				'showUpload': false,
+				'showCaption': true,
+				'showDownload': true,
+			//	'initialPreviewAsData': true,
+			allowedFileExtensions: ["jpg", "png", "jpeg", "mp4", "zip", "rar"],
+		});
+
+		});
+	</script>
+<?php } ?>

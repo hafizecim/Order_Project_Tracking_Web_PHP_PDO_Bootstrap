@@ -44,6 +44,8 @@
 
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<script type="text/javascript" src="vendor/sweetalert/sweetalert2.all.min.js"></script>
+
 <!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
