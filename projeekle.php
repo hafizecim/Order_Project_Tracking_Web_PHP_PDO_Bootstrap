@@ -1,5 +1,11 @@
 <?php include 'header.php'; ?>
 
+<link rel="stylesheet" media="all" type="text/css" href="vendor/upload/css/fileinput.min.css">
+<link rel="stylesheet" type="text/css" media="all" href="vendor/upload/themes/explorer-fas/theme.min.css">
+<script src="vendor/upload/js/fileinput.js" type="text/javascript" charset="utf-8"></script>
+<script src="vendor/upload/themes/fas/theme.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="vendor/upload/themes/explorer-fas/theme.minn.js" type="text/javascript" charset="utf-8"></script>
+
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -36,14 +42,34 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-row mt-2">
-                    <label>Proje Detayı</label>
-                    <textarea name="proje_detay" class="form-control"></textarea>
+                <div class=" form-row mt-2">
+                    <div class="col-md-6">
+                        <label>Dosya Seçme</label>
+                        <input type="file" name="proje_dosya" id="proje_dosya">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Proje Detayı</label>
+                        <textarea name="proje_detay" class="form-control"  style="height: 306px";></textarea>
+                    </div>
                 </div>
-                <button name="projeekle" type="submit" class="btn btn-primary mt-2">Kaydet</button>
+                <div class=" form-row mt-4  text-center float-right">
+                <button name="projeekle" type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Kaydet</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
 <?php include 'footer.php' ?>
+
+<script>
+    $(document).ready(function () {
+        $("#proje_dosya").fileinput({
+            'theme': 'explorer-fas',
+            'showUpload': false,
+            'showCaption': true,
+            showDownload: true,
+            allowedFileExtensions: ["jpg", "png", "jpeg", "mp4", "zip", "rar"],
+        });
+    });
+</script>

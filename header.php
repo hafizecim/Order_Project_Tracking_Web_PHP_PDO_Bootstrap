@@ -51,6 +51,8 @@ if (empty($_SESSION['kul_mail'])){
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <script src="vendor/jquery/jquery.min.js"></script>
+
 </head>
 
 <body id="page-top">

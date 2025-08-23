@@ -53,7 +53,7 @@ if (isset($_POST['proje_id'])) {
                     <label>Proje Detayı</label>
                     <textarea name="proje_detay" class="form-control"><?php echo $projecek['proje_detay'] ?></textarea>
                 </div>
-                <button name="projeduzenle" type="submit" class="btn btn-primary mt-2">Kaydet</button>
+                <button name="projeduzenle" type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Kaydet</button>
             </form>
         </div>
     </div>
