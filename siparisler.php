@@ -199,9 +199,9 @@ include 'header.php'
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <form action="siparisduzenle.php" method="POST">
-                                            <input type="hidden" name="siparis_id"
+                                            <input type="hidden" name="sip_id"
                                                 value="<?php echo $sipariscek['sip_id'] ?>">
-                                            <button type="submit" name="duzenleme"
+                                            <button type="submit" name="siparisduzenle"
                                                 class="btn btn-success btn-sm btn-icon-split">
                                                 <span class="icon text-white-60">
                                                     <i class="fas fa-edit"></i>
@@ -209,7 +209,7 @@ include 'header.php'
                                             </button>
                                         </form>
                                         <form class="mx-1" action="islemler/islem.php" method="POST">
-                                            <input type="hidden" name="siparis_id"
+                                            <input type="hidden" name="sip_id"
                                                 value="<?php echo $sipariscek['sip_id'] ?>">
                                             <button type="submit" name="siparissilme"
                                                 class="btn btn-danger btn-sm btn-icon-split">
@@ -219,7 +219,7 @@ include 'header.php'
                                             </button>
                                         </form>
                                         <form action="siparisgoruntule.php" method="POST">
-                                            <input type="hidden" name="siparis_id"
+                                            <input type="hidden" name="sip_id"
                                                 value="<?php echo $sipariscek['sip_id'] ?>">
                                             <button type="submit" name="siparis_bak"
                                                 class="btn btn-primary btn-sm btn-icon-split">
