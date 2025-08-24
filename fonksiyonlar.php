@@ -17,4 +17,9 @@ function guvenlik($gelen){
 	return $giden;
 };
 
+function sifreleme($kul_mail) {
+	$gizlianahtar = '05a8acd63ecadfc55842804bc537f76e';
+	return md5(sha1(md5($_SERVER['REMOTE_ADDR'] . $gizlianahtar . $kul_mail . "Aksoyhlc" . date('d.m.Y H:i:s') . $_SERVER['HTTP_USER_AGENT'])));
+};
+
 ?>

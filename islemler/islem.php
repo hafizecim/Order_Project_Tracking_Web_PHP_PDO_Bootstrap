@@ -39,13 +39,22 @@ if (isset($_GET["api_key"])) {
     $api = true;
 }
 
+/*
+// DEBUG: Flutter'dan gelen POST ve GET verilerini göster
+var_dump($_POST);
+var_dump($_GET);
+exit; // Kod burda durur, geri kalan sorgular çalışmaz
+
+*/
+
 /********************************************************************************/
 /*Oturum Açma İşlemi Giriş*/
 if (isset($_POST['oturumac'])) {
 
     if (isset($_POST['kul_mail']) and isset($_POST['kul_sifre'])) {
         $kul_mail = guvenlik($_POST['kul_mail']);
-        $kul_sifre = md5($_POST['kul_sifre']);
+        //$kul_sifre = md5($_POST['kul_sifre']);
+        $kul_sifre = $_POST['kul_sifre']; // doğrudan gelen şifreyi kullan
         $kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kul_mail=:mail and kul_sifre=:sifre");
         $kullanicisor->execute(array(
             'mail' => $kul_mail,
@@ -70,18 +79,21 @@ if (isset($_POST['oturumac'])) {
             ));
 
             if ($api) {
-
+                // header('Content-Type: application/json; charset=utf-8'); // JSON başlık
                 echo json_encode([
                     'durum' => 'ok',
                     'bilgiler' => $kullanicicek
                 ]);
+                //exit;
             } else {
                 header("location:../index.php");
+                //exit;
             }
 
             exit;
         } else {
             if ($api) {
+                //header('Content-Type: application/json; charset=utf-8');
                 echo json_encode([
                     'durum' => 'no',
                     'mesaj' => 'Giriş Bilgileriniz Hatalı'
