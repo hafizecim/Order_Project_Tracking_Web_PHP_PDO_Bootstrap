@@ -384,4 +384,36 @@ if (isset($_POST['siparissilme'])) {
 /********************************************************************************/
 /*Sipariş silme İşlemi Giriş*/
 
+
+
+
+/************************** Flutter için ***********************************************/
+
+if (isset($_POST['projeleri_getir'])) {
+  if(!$api){
+    echo json_encode(['durum' => 'no','mesaj'=>'API Bilgileriniz Eksik']);
+  } else {
+
+    if (isset($_POST['sirala'])) {
+      $order="ORDER BY ".guvenlik($_POST['sirala']);
+    } else {
+      $order="";
+    }
+
+    if (isset($_POST['limit'])) {
+      $limit="LIMIT ".guvenlik($_POST['limit']);
+    } else {
+      $limit="";
+    }
+
+
+    $x=$db->prepare("SELECT * FROM proje $order $limit");
+    $x->execute();
+    $sonuc=$x->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode(['durum' => 'ok', 'projeler' => $sonuc],JSON_NUMERIC_CHECK | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+
+  }
+}
+
+
 ?>
