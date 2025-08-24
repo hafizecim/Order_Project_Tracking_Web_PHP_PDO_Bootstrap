@@ -23,11 +23,26 @@ if (isset($_POST['ayarkaydet'])) {  // eğer gele değerler doluysa
 
 }
 
-/********************************************************************************/
+//Site ayarlarının veri tabanı çekme işlemi
+$ayarsor = $db->prepare("SELECT * FROM ayarlar");
+$ayarsor->execute();
+$ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
 
+if (isset($_GET["api_key"])) {
+    if ($_GET["api_key"] == $api_key) {
+        $api = true;
+    } else {
+        echo json_encode(['durum' => 'no', 'mesaj' => "API Bilgileriniz hatalıdır."]);
+        $api = false;
+    }
+} else {
+    $api = true;
+}
+
+/********************************************************************************/
 /*Oturum Açma İşlemi Giriş*/
 if (isset($_POST['oturumac'])) { // oturumac flutterda kullandım servis/oturum.dart
- 
+
 
     $kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kul_mail=:mail and kul_sifre=:sifre");
     $kullanicisor->execute(array(
@@ -39,7 +54,7 @@ if (isset($_POST['oturumac'])) { // oturumac flutterda kullandım servis/oturum.
     if ($sonuc == 0) {
         echo "Mail ya da şifreniz yanlış";
     } else {
-        header("location:../index.php"); 
+        header("location:../index.php");
         $_SESSION['kul_mail'] = $_POST['kul_mail'];
     }
 
@@ -72,23 +87,23 @@ if (isset($_POST['projeekle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
     $yuklemeklasoru = '../dosyalar';
     @$gecici_isim = $_FILES['proje_dosya']["tmp_name"];
     @$dosya_ismi = $_FILES['proje_dosya']["name"];
-    $benzersizsayi1=rand(100000,999999);
-    $isim=tr_degistirme($benzersizsayi1.$_POST['proje_baslik'].$dosya_ismi);
-    $resim_yolu=substr($yuklemeklasoru,3)."/".$isim;
-    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");  
+    $benzersizsayi1 = rand(100000, 999999);
+    $isim = tr_degistirme($benzersizsayi1 . $_POST['proje_baslik'] . $dosya_ismi);
+    $resim_yolu = substr($yuklemeklasoru, 3) . "/" . $isim;
+    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");
 
-    $son_eklenen_id=$db->lastInsertId();
+    $son_eklenen_id = $db->lastInsertId();
 
-    $dosyayukleme=$db->prepare("UPDATE proje SET
+    $dosyayukleme = $db->prepare("UPDATE proje SET
      dosya_yolu=:dosya_yolu   WHERE proje_id=:proje_id ");
 
-    $yukleme=$dosyayukleme->execute(array(
-     'dosya_yolu' => $resim_yolu,
-     'proje_id' => $son_eklenen_id
-   ));
-    
+    $yukleme = $dosyayukleme->execute(array(
+        'dosya_yolu' => $resim_yolu,
+        'proje_id' => $son_eklenen_id
+    ));
 
-   
+
+
 
     if ($projeekle) {
         header("location:../index.php");
@@ -125,19 +140,19 @@ if (isset($_POST['projeduzenle'])) { // PROJE EKEL FORMUNDAN GELİYORSAN
     $yuklemeklasoru = '../dosyalar';
     @$gecici_isim = $_FILES['proje_dosya']["tmp_name"];
     @$dosya_ismi = $_FILES['proje_dosya']["name"];
-    $benzersizsayi1=rand(100000,999999);
-    $isim=tr_degistirme($benzersizsayi1.$_POST['proje_baslik'].$dosya_ismi);
-    $resim_yolu=substr($yuklemeklasoru,3)."/".$isim;
-    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");  
+    $benzersizsayi1 = rand(100000, 999999);
+    $isim = tr_degistirme($benzersizsayi1 . $_POST['proje_baslik'] . $dosya_ismi);
+    $resim_yolu = substr($yuklemeklasoru, 3) . "/" . $isim;
+    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");
 
 
-    $dosyayukleme=$db->prepare("UPDATE proje SET
+    $dosyayukleme = $db->prepare("UPDATE proje SET
      dosya_yolu=:dosya_yolu    WHERE proje_id=:proje_id ");
 
-    $yukleme=$dosyayukleme->execute(array(
-     'dosya_yolu' => $resim_yolu,
-     'proje_id' => $_POST['proje_id']
-   ));
+    $yukleme = $dosyayukleme->execute(array(
+        'dosya_yolu' => $resim_yolu,
+        'proje_id' => $_POST['proje_id']
+    ));
 
 
     if ($projeduzenle) {
@@ -208,20 +223,20 @@ if (isset($_POST['siparisekle'])) {
     $yuklemeklasoru = '../dosyalar';
     @$gecici_isim = $_FILES['siparis_dosya']["tmp_name"];
     @$dosya_ismi = $_FILES['siparis_dosya']["name"];
-    $benzersizsayi1=rand(100000,999999);
-    $isim=tr_degistirme($benzersizsayi1.$_POST['sip_baslik'].$dosya_ismi);
-    $resim_yolu=substr($yuklemeklasoru,3)."/".$isim;
-    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");  
+    $benzersizsayi1 = rand(100000, 999999);
+    $isim = tr_degistirme($benzersizsayi1 . $_POST['sip_baslik'] . $dosya_ismi);
+    $resim_yolu = substr($yuklemeklasoru, 3) . "/" . $isim;
+    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");
 
-    $son_eklenen_id=$db->lastInsertId();
+    $son_eklenen_id = $db->lastInsertId();
 
-    $dosyayukleme=$db->prepare("UPDATE siparis SET
+    $dosyayukleme = $db->prepare("UPDATE siparis SET
      dosya_yolu=:dosya_yolu   WHERE sip_id=:sip_id ");
 
-    $yukleme=$dosyayukleme->execute(array(
-     'dosya_yolu' => $resim_yolu,
-     'sip_id' => $son_eklenen_id
-   ));
+    $yukleme = $dosyayukleme->execute(array(
+        'dosya_yolu' => $resim_yolu,
+        'sip_id' => $son_eklenen_id
+    ));
 
     if ($siparisekle) {
         //echo "kayıt başarılı";
@@ -254,7 +269,7 @@ if (isset($_POST['siparisduzenle'])) {
         WHERE sip_id=:sip_id
     ");
 
-     $siparisduzenle->execute(array(
+    $siparisduzenle->execute(array(
         'isim' => $_POST['musteri_isim'],
         'mail' => $_POST['musteri_mail'],
         'telefon' => $_POST['musteri_telefon'],
@@ -271,19 +286,19 @@ if (isset($_POST['siparisduzenle'])) {
     $yuklemeklasoru = '../dosyalar';
     @$gecici_isim = $_FILES['siparis_dosya']["tmp_name"];
     @$dosya_ismi = $_FILES['siparis_dosya']["name"];
-    $benzersizsayi1=rand(100000,999999);
-    $isim=tr_degistirme($benzersizsayi1.$_POST['sip_baslik'].$dosya_ismi);
-    $resim_yolu=substr($yuklemeklasoru,3)."/".$isim;
-    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");  
+    $benzersizsayi1 = rand(100000, 999999);
+    $isim = tr_degistirme($benzersizsayi1 . $_POST['sip_baslik'] . $dosya_ismi);
+    $resim_yolu = substr($yuklemeklasoru, 3) . "/" . $isim;
+    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");
 
 
-    $dosyayukleme=$db->prepare("UPDATE siparis SET
+    $dosyayukleme = $db->prepare("UPDATE siparis SET
      dosya_yolu=:dosya_yolu   WHERE sip_id=:sip_id ");
 
-    $yukleme=$dosyayukleme->execute(array(
-     'dosya_yolu' => $resim_yolu,
-     'sip_id' => $_POST['sip_id']
-   ));
+    $yukleme = $dosyayukleme->execute(array(
+        'dosya_yolu' => $resim_yolu,
+        'sip_id' => $_POST['sip_id']
+    ));
 
     if ($siparisduzenle) {
         header("location:../index.php");
