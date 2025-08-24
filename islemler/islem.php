@@ -26,13 +26,13 @@ if (isset($_POST['ayarkaydet'])) {  // eğer gele değerler doluysa
 /********************************************************************************/
 
 /*Oturum Açma İşlemi Giriş*/
-if (isset($_POST['oturumac'])) {
-
+if (isset($_POST['oturumac'])) { // oturumac flutterda kullandım servis/oturum.dart
+ 
 
     $kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kul_mail=:mail and kul_sifre=:sifre");
     $kullanicisor->execute(array(
-        'mail' => $_POST['kul_mail'],
-        'sifre' => $_POST['kul_sifre']
+        'mail' => $_POST['kul_mail'], // kul_mail flutterda kullandım servis/oturum.dart
+        'sifre' => $_POST['kul_sifre'] // kul_sifre flutterda kullandım servis/oturum.dart
     ));
     $sonuc = $kullanicisor->rowCount();
 
