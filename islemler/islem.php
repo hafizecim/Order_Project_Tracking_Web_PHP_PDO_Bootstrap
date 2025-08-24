@@ -41,25 +41,63 @@ if (isset($_GET["api_key"])) {
 
 /********************************************************************************/
 /*Oturum Açma İşlemi Giriş*/
-if (isset($_POST['oturumac'])) { // oturumac flutterda kullandım servis/oturum.dart
+if (isset($_POST['oturumac'])) {
 
+    if (isset($_POST['kul_mail']) and isset($_POST['kul_sifre'])) {
+        $kul_mail = guvenlik($_POST['kul_mail']);
+        $kul_sifre = md5($_POST['kul_sifre']);
+        $kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kul_mail=:mail and kul_sifre=:sifre");
+        $kullanicisor->execute(array(
+            'mail' => $kul_mail,
+            'sifre' => $kul_sifre
+        ));
+        $sonuc = $kullanicisor->rowCount();
+        if ($sonuc == 1) {
+            $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
+            $_SESSION['kul_mail'] = sifreleme($kul_mail);
+            $_SESSION['kul_id'] = $kullanicicek['kul_id'];
 
-    $kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kul_mail=:mail and kul_sifre=:sifre");
-    $kullanicisor->execute(array(
-        'mail' => $_POST['kul_mail'], // kul_mail flutterda kullandım servis/oturum.dart
-        'sifre' => $_POST['kul_sifre'] // kul_sifre flutterda kullandım servis/oturum.dart
-    ));
-    $sonuc = $kullanicisor->rowCount();
+            $ipkaydet = $db->prepare("UPDATE kullanici SET
+        ip_adresi=:ip_adresi, 
+        session_mail=:session_mail WHERE 
+        kul_mail=:kul_mail
+        ");
 
-    if ($sonuc == 0) {
-        echo "Mail ya da şifreniz yanlış";
+            $kaydet = $ipkaydet->execute(array(
+                'ip_adresi' => $_SERVER['REMOTE_ADDR'],
+                'session_mail' => sifreleme($kul_mail),
+                'kul_mail' => $kul_mail
+            ));
+
+            if ($api) {
+
+                echo json_encode([
+                    'durum' => 'ok',
+                    'bilgiler' => $kullanicicek
+                ]);
+            } else {
+                header("location:../index.php");
+            }
+
+            exit;
+        } else {
+            if ($api) {
+                echo json_encode([
+                    'durum' => 'no',
+                    'mesaj' => 'Giriş Bilgileriniz Hatalı'
+                ]);
+            } else {
+                header("location:../giris?durum=hata");
+            }
+        }
     } else {
-        header("location:../index.php");
-        $_SESSION['kul_mail'] = $_POST['kul_mail'];
+        echo json_encode([
+            'durum' => 'no',
+            'mesaj' => 'Mail veya Şifre Parametreleri Boş'
+        ]);
     }
 
-
-
+    exit;
 }
 /*******************************************************************************/
 /*Oturum Açma İşlemi Giriş*/
