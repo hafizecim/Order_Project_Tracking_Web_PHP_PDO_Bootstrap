@@ -30,7 +30,7 @@
 
     <?php
     $sayi = 0;
-    $projesor = $db->prepare("SELECT * FROM proje WHERE proje_durum='Bitti'");
+    $projesor = $db->prepare("SELECT * FROM proje WHERE proje_aciliyet='Bitti'");
     $projesor->execute();
     $sayi = $projesor->rowCount();
     ?>
@@ -54,7 +54,7 @@
 
     <?php
     $sayi = 0;
-    $projesor = $db->prepare("SELECT * FROM proje WHERE proje_durum='Acil'");
+    $projesor = $db->prepare("SELECT * FROM proje WHERE proje_aciliyet='Acil'");
     $projesor->execute();
     $sayi = $projesor->rowCount();
     ?>
@@ -78,7 +78,7 @@
 
     <?php
     $sayi = 0;
-    $projesor = $db->prepare("SELECT * FROM proje WHERE proje_durum='Acelesi Yok'");
+    $projesor = $db->prepare("SELECT * FROM proje WHERE proje_aciliyet='Acelesi Yok'");
     $projesor->execute();
     $sayi = $projesor->rowCount();
     ?>
@@ -157,7 +157,7 @@
 
     <?php
     $sayi = 0;
-    $projesor = $db->prepare("SELECT * FROM siparis WHERE sip_durum='Acil'");
+    $projesor = $db->prepare("SELECT * FROM siparis WHERE sip_aciliyet='Acil'");
     $projesor->execute();
     $sayi = $projesor->rowCount();
     ?>
@@ -181,7 +181,7 @@
 
     <?php
     $sayi = 0;
-    $projesor = $db->prepare("SELECT * FROM siparis WHERE sip_durum='Acelesi Yok'");
+    $projesor = $db->prepare("SELECT * FROM siparis WHERE sip_aciliyet='Acelesi Yok'");
     $projesor->execute();
     $sayi = $projesor->rowCount();
     ?>

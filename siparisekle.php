@@ -34,7 +34,7 @@
                     <div class="col-md-6">
                         <label>Sipariş Başlığı</label>
                         <input type="text" class="form-control" name="sip_baslik"
-                            placeholder="MSiparişiniz Başlığını Yazınız">
+                            placeholder="Siparişiniz Başlığını Yazınız">
                     </div>
                 </div>
                 <div class="form-row mt-3">
